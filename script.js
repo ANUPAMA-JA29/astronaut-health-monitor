@@ -1,4 +1,12 @@
-// Starting health values
+// ==========================================
+// ORBITAL HEALTH
+// Astronaut Health Monitoring Dashboard
+// ==========================================
+
+
+// ------------------------------------------
+// INITIAL HEALTH DATA
+// ------------------------------------------
 
 let health = {
     heartRate: 72,
@@ -9,7 +17,18 @@ let health = {
 };
 
 
-// Generate random value within a range
+// ------------------------------------------
+// MISSION CLOCK
+// Starting from Mission Day 42
+// ------------------------------------------
+
+let missionSeconds = 42 * 24 * 60 * 60;
+
+
+// ------------------------------------------
+// HELPER FUNCTION
+// Generate random value
+// ------------------------------------------
 
 function randomBetween(min, max, decimals = 0) {
 
@@ -19,22 +38,33 @@ function randomBetween(min, max, decimals = 0) {
 }
 
 
-// Update the dashboard
+// ------------------------------------------
+// UPDATE HEALTH DATA
+// ------------------------------------------
 
 function updateHealthData() {
 
-    health.heartRate = randomBetween(60, 105);
+    // Generate simulated astronaut data
 
-    health.oxygen = randomBetween(86, 100);
+    health.heartRate =
+        randomBetween(60, 105);
 
-    health.temperature = randomBetween(36.0, 38.0, 1);
+    health.oxygen =
+        randomBetween(86, 100);
 
-    health.sleep = randomBetween(5.5, 9.0, 1);
+    health.temperature =
+        randomBetween(36.0, 38.0, 1);
 
-    health.exercise = randomBetween(20, 90);
+    health.sleep =
+        randomBetween(5.5, 9.0, 1);
+
+    health.exercise =
+        randomBetween(20, 90);
 
 
-    // Display values
+    // --------------------------------------
+    // UPDATE VALUES ON SCREEN
+    // --------------------------------------
 
     document.getElementById("heartRate").textContent =
         health.heartRate;
@@ -52,60 +82,113 @@ function updateHealthData() {
         health.exercise;
 
 
-    // Progress bars
+    // --------------------------------------
+    // TEMPERATURE VISUAL
+    // --------------------------------------
 
-    document.getElementById("heartProgress").style.width =
-        Math.min(health.heartRate, 100) + "%";
+    const temperatureProgress =
+        document.getElementById("temperatureProgress");
 
-    document.getElementById("oxygenProgress").style.width =
-        health.oxygen + "%";
+    let temperatureWidth =
+        ((health.temperature - 35) / 4) * 100;
 
-    document.getElementById("temperatureProgress").style.width =
-        ((health.temperature - 35) / 4) * 100 + "%";
+    temperatureWidth =
+        Math.max(5, Math.min(100, temperatureWidth));
 
-    document.getElementById("sleepProgress").style.width =
-        (health.sleep / 10) * 100 + "%";
+    temperatureProgress.style.width =
+        temperatureWidth + "%";
 
-    document.getElementById("exerciseProgress").style.width =
-        Math.min((health.exercise / 90) * 100, 100) + "%";
 
+    // --------------------------------------
+    // UPDATE OXYGEN RING
+    // --------------------------------------
+
+    const oxygenRing =
+        document.querySelector(".oxygen-ring");
+
+    if (oxygenRing) {
+
+        const oxygenPercentage =
+            Math.max(0, Math.min(100, health.oxygen));
+
+        oxygenRing.style.background =
+            `conic-gradient(
+                #4c9fdb ${oxygenPercentage}%,
+                #e5f3fb ${oxygenPercentage}%
+            )`;
+
+        oxygenRing.style.border =
+            "5px solid #e5f3fb";
+
+        oxygenRing.style.borderTopColor =
+            "#4c9fdb";
+    }
+
+
+    // --------------------------------------
+    // CHECK HEALTH STATUS
+    // --------------------------------------
 
     checkHealthStatus();
+
+
+    // --------------------------------------
+    // UPDATE LAST UPDATED TIME
+    // --------------------------------------
+
+    updateLastUpdated();
+
 }
 
 
-// Health status and alert logic
+// ------------------------------------------
+// HEALTH STATUS + ALERT LOGIC
+// ------------------------------------------
 
 function checkHealthStatus() {
 
-    const status = document.getElementById("overallStatus");
+    const status =
+        document.getElementById("overallStatus");
 
-    const alertBox = document.getElementById("alertBox");
+    const alertBox =
+        document.getElementById("alertBox");
 
-    const alertTitle = document.getElementById("alertTitle");
+    const alertTitle =
+        document.getElementById("alertTitle");
 
-    const alertMessage = document.getElementById("alertMessage");
+    const alertMessage =
+        document.getElementById("alertMessage");
 
 
+    // ======================================
     // CRITICAL CONDITION
+    // Oxygen below 90%
+    // ======================================
 
     if (health.oxygen < 90) {
 
-        status.textContent = "● CRITICAL";
-        status.className = "status critical";
+        status.className =
+            "status critical";
+
+        status.innerHTML =
+            "<span></span>CRITICAL";
+
 
         alertBox.classList.remove("hidden");
 
-        alertTitle.textContent = "CRITICAL OXYGEN ALERT";
+        alertTitle.textContent =
+            "CRITICAL OXYGEN ALERT";
 
         alertMessage.textContent =
-            `Oxygen level has dropped to ${health.oxygen}%. Immediate attention required.`;
+            `Oxygen saturation has dropped to ${health.oxygen}%. Immediate medical attention is required.`;
 
         return;
     }
 
 
-    // WARNING CONDITION
+    // ======================================
+    // WARNING CONDITIONS
+    // ======================================
 
     if (
         health.heartRate > 100 ||
@@ -113,27 +196,45 @@ function checkHealthStatus() {
         health.sleep < 6
     ) {
 
-        status.textContent = "● WARNING";
-        status.className = "status warning";
+        status.className =
+            "status warning";
+
+        status.innerHTML =
+            "<span></span>WARNING";
+
 
         alertBox.classList.remove("hidden");
 
-        alertTitle.textContent = "HEALTH WARNING";
+        alertTitle.textContent =
+            "HEALTH WARNING";
+
+
+        // Elevated heart rate
 
         if (health.heartRate > 100) {
 
             alertMessage.textContent =
                 `Heart rate is elevated at ${health.heartRate} BPM.`;
 
-        } else if (health.temperature > 37.5) {
+        }
+
+
+        // Elevated temperature
+
+        else if (health.temperature > 37.5) {
 
             alertMessage.textContent =
                 `Body temperature is elevated at ${health.temperature}°C.`;
 
-        } else {
+        }
+
+
+        // Insufficient sleep
+
+        else if (health.sleep < 6) {
 
             alertMessage.textContent =
-                `Sleep duration is below the recommended level.`;
+                `Sleep duration is below the recommended level at ${health.sleep} hours.`;
 
         }
 
@@ -141,69 +242,186 @@ function checkHealthStatus() {
     }
 
 
+    // ======================================
     // NORMAL CONDITION
+    // ======================================
 
-    status.textContent = "● NORMAL";
-    status.className = "status normal";
+    status.className =
+        "status normal";
+
+    status.innerHTML =
+        "<span></span>NORMAL";
+
 
     alertBox.classList.add("hidden");
+
 }
 
 
-// Mission clock
-
-let missionSeconds = 42 * 24 * 60 * 60;
-
+// ------------------------------------------
+// MISSION TIME
+// ------------------------------------------
 
 function updateMissionTime() {
 
     missionSeconds++;
 
+
+    // Calculate mission day
+
     const days =
-        Math.floor(missionSeconds / (24 * 60 * 60));
+        Math.floor(
+            missionSeconds / (24 * 60 * 60)
+        );
+
+
+    // Remaining seconds in the current day
 
     const remaining =
         missionSeconds % (24 * 60 * 60);
 
+
+    // Calculate hours
+
     const hours =
         Math.floor(remaining / 3600);
 
+
+    // Calculate minutes
+
     const minutes =
-        Math.floor((remaining % 3600) / 60);
+        Math.floor(
+            (remaining % 3600) / 60
+        );
+
+
+    // Calculate seconds
 
     const seconds =
         remaining % 60;
 
 
-    document.getElementById("missionDay").textContent =
+    // --------------------------------------
+    // DISPLAY MISSION DAY
+    // --------------------------------------
+
+    const missionDay =
+        document.getElementById("missionDay");
+
+    missionDay.textContent =
         `DAY ${days}`;
 
 
-    document.getElementById("missionTime").textContent =
+    // --------------------------------------
+    // DISPLAY MISSION TIME
+    // --------------------------------------
+
+    const missionTime =
+        document.getElementById("missionTime");
+
+    missionTime.textContent =
         `${String(hours).padStart(2, "0")}:` +
         `${String(minutes).padStart(2, "0")}:` +
         `${String(seconds).padStart(2, "0")}`;
 
-
-    const now = new Date();
-
-    document.getElementById("lastUpdated").textContent =
-        now.toLocaleTimeString();
 }
 
 
-// Initial update
+// ------------------------------------------
+// LAST UPDATED TIME
+// ------------------------------------------
 
-updateHealthData();
+function updateLastUpdated() {
+
+    const lastUpdated =
+        document.getElementById("lastUpdated");
+
+    const now =
+        new Date();
 
 
-// Health data changes every 5 seconds
+    lastUpdated.textContent =
+        now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
 
-setInterval(updateHealthData, 5000);
+}
 
 
-// Mission clock updates every second
+// ------------------------------------------
+// ADD SMALL INTERACTION TO HEALTH CARDS
+// ------------------------------------------
 
-setInterval(updateMissionTime, 1000);
+function enableCardInteractions() {
 
-updateMissionTime();
+    const cards =
+        document.querySelectorAll(".health-card");
+
+
+    cards.forEach(card => {
+
+        card.addEventListener("mouseenter", () => {
+
+            card.style.cursor = "default";
+
+        });
+
+    });
+
+}
+
+
+// ------------------------------------------
+// INITIALIZE DASHBOARD
+// ------------------------------------------
+
+function initializeDashboard() {
+
+    // Generate first health reading
+
+    updateHealthData();
+
+
+    // Start mission clock
+
+    updateMissionTime();
+
+
+    // Enable card interactions
+
+    enableCardInteractions();
+
+}
+
+
+// ------------------------------------------
+// RUN DASHBOARD
+// ------------------------------------------
+
+initializeDashboard();
+
+
+// ------------------------------------------
+// AUTOMATIC HEALTH UPDATE
+// Every 5 seconds
+// ------------------------------------------
+
+setInterval(() => {
+
+    updateHealthData();
+
+}, 5000);
+
+
+// ------------------------------------------
+// MISSION CLOCK UPDATE
+// Every second
+// ------------------------------------------
+
+setInterval(() => {
+
+    updateMissionTime();
+
+}, 1000);
