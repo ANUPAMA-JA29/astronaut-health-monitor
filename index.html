@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Astronaut Health Monitor</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Header -->
+        <header>
+            <div>
+                <p class="mission-label">NASA SPACE MISSION</p>
+                <h1>🚀 Astronaut Health Monitor</h1>
+                <p class="subtitle">
+                    Real-time health monitoring system
+                </p>
+            </div>
+
+            <div class="mission-info">
+                <div>
+                    <span>MISSION DAY</span>
+                    <strong id="missionDay">DAY 42</strong>
+                </div>
+
+                <div>
+                    <span>MISSION TIME</span>
+                    <strong id="missionTime">00:00:00</strong>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- Astronaut -->
+        <section class="astronaut-card">
+
+            <div class="astronaut-info">
+                <div class="avatar">👨‍🚀</div>
+
+                <div>
+                    <p>ASTRONAUT</p>
+                    <h2>Commander Maya</h2>
+                    <span>ISS Expedition • Crew Member 01</span>
+                </div>
+            </div>
+
+            <div id="overallStatus" class="status normal">
+                ● NORMAL
+            </div>
+
+        </section>
+
+
+        <!-- Alert -->
+        <div id="alertBox" class="alert hidden">
+            <span>⚠️</span>
+            <div>
+                <strong id="alertTitle">Health Alert</strong>
+                <p id="alertMessage"></p>
+            </div>
+        </div>
+
+
+        <!-- Health Parameters -->
+        <section class="health-grid">
+
+            <div class="health-card">
+                <div class="card-header">
+                    <span>❤️</span>
+                    <p>HEART RATE</p>
+                </div>
+
+                <h3>
+                    <span id="heartRate">72</span>
+                    <small>BPM</small>
+                </h3>
+
+                <div class="progress">
+                    <div id="heartProgress"></div>
+                </div>
+
+                <p class="range">Normal: 60–100 BPM</p>
+            </div>
+
+
+            <div class="health-card">
+                <div class="card-header">
+                    <span>🫁</span>
+                    <p>OXYGEN LEVEL</p>
+                </div>
+
+                <h3>
+                    <span id="oxygen">98</span>
+                    <small>%</small>
+                </h3>
+
+                <div class="progress">
+                    <div id="oxygenProgress"></div>
+                </div>
+
+                <p class="range">Normal: 95–100%</p>
+            </div>
+
+
+            <div class="health-card">
+                <div class="card-header">
+                    <span>🌡️</span>
+                    <p>BODY TEMPERATURE</p>
+                </div>
+
+                <h3>
+                    <span id="temperature">36.7</span>
+                    <small>°C</small>
+                </h3>
+
+                <div class="progress">
+                    <div id="temperatureProgress"></div>
+                </div>
+
+                <p class="range">Normal: 36.1–37.2°C</p>
+            </div>
+
+
+            <div class="health-card">
+                <div class="card-header">
+                    <span>😴</span>
+                    <p>SLEEP DURATION</p>
+                </div>
+
+                <h3>
+                    <span id="sleep">7.4</span>
+                    <small>HRS</small>
+                </h3>
+
+                <div class="progress">
+                    <div id="sleepProgress"></div>
+                </div>
+
+                <p class="range">Target: 7–9 hours</p>
+            </div>
+
+
+            <div class="health-card">
+                <div class="card-header">
+                    <span>🏃</span>
+                    <p>EXERCISE TIME</p>
+                </div>
+
+                <h3>
+                    <span id="exercise">54</span>
+                    <small>MIN</small>
+                </h3>
+
+                <div class="progress">
+                    <div id="exerciseProgress"></div>
+                </div>
+
+                <p class="range">Target: 30–90 min</p>
+            </div>
+
+
+            <div class="health-card mission-card">
+                <div class="card-header">
+                    <span>🛰️</span>
+                    <p>MISSION STATUS</p>
+                </div>
+
+                <h3>ACTIVE</h3>
+
+                <p class="range">
+                    Monitoring astronaut health continuously
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- Monitoring information -->
+        <section class="monitoring">
+
+            <div>
+                <span class="pulse"></span>
+                LIVE MONITORING
+            </div>
+
+            <p>
+                Last updated:
+                <strong id="lastUpdated">--:--:--</strong>
+            </p>
+
+        </section>
+
+
+        <footer>
+            <p>NASA Space Apps • Astronaut Health Monitor</p>
+            <p>Prototype using simulated health data</p>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
