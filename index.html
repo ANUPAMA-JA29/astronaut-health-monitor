@@ -4,26 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Astronaut Health Monitor</title>
+    <title>Mission Health | Astronaut Monitor</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="dashboard">
+<div class="app">
 
-        <!-- Header -->
-        <header>
+    <!-- TOP NAVIGATION -->
+    <nav class="topbar">
+
+        <div class="brand">
+            <div class="brand-mark">✦</div>
+
             <div>
-                <p class="mission-label">NASA SPACE MISSION</p>
-                <h1>🚀 Astronaut Health Monitor</h1>
-                <p class="subtitle">
-                    Real-time health monitoring system
+                <strong>ORBITAL HEALTH</strong>
+                <span>CREW WELLNESS SYSTEM</span>
+            </div>
+        </div>
+
+        <div class="mission-chip">
+            <span class="live-dot"></span>
+            LIVE MISSION
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-text">
+                <span class="eyebrow">EXPEDITION 42 • ORBITAL MEDICAL BAY</span>
+
+                <h1>
+                    How is the crew<br>
+                    <span>doing today?</span>
+                </h1>
+
+                <p>
+                    Continuous monitoring of astronaut wellness
+                    during long-duration spaceflight.
                 </p>
             </div>
 
-            <div class="mission-info">
+
+            <div class="orbit-visual">
+
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+
+                <div class="planet">
+                    <span>🌍</span>
+                </div>
+
+                <div class="satellite">✦</div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ASTRONAUT PROFILE -->
+        <section class="profile">
+
+            <div class="crew-avatar">
+                👩‍🚀
+            </div>
+
+            <div class="crew-details">
+                <span class="small-label">CREW MEMBER 01</span>
+                <h2>Commander Maya</h2>
+                <p>ISS Expedition Specialist • Medical Status Monitoring</p>
+            </div>
+
+            <div class="mission-clock">
+
                 <div>
                     <span>MISSION DAY</span>
                     <strong id="missionDay">DAY 42</strong>
@@ -33,178 +93,675 @@
                     <span>MISSION TIME</span>
                     <strong id="missionTime">00:00:00</strong>
                 </div>
-            </div>
-        </header>
 
-
-        <!-- Astronaut -->
-        <section class="astronaut-card">
-
-            <div class="astronaut-info">
-                <div class="avatar">👨‍🚀</div>
-
-                <div>
-                    <p>ASTRONAUT</p>
-                    <h2>Commander Maya</h2>
-                    <span>ISS Expedition • Crew Member 01</span>
-                </div>
             </div>
 
             <div id="overallStatus" class="status normal">
-                ● NORMAL
+                <span></span>
+                NORMAL
             </div>
 
         </section>
 
 
-        <!-- Alert -->
+        <!-- ALERT -->
         <div id="alertBox" class="alert hidden">
-            <span>⚠️</span>
+
+            <div class="alert-icon">!</div>
+
             <div>
                 <strong id="alertTitle">Health Alert</strong>
                 <p id="alertMessage"></p>
             </div>
+
         </div>
 
 
-        <!-- Health Parameters -->
+        <!-- HEALTH PARAMETERS -->
+        <section class="section-heading">
+
+            <div>
+                <span class="eyebrow">BIOMETRIC READINGS</span>
+                <h2>Today's health picture</h2>
+            </div>
+
+            <span class="updated">
+                Updated <strong id="lastUpdated">--:--:--</strong>
+            </span>
+
+        </section>
+
+
         <section class="health-grid">
 
-            <div class="health-card">
-                <div class="card-header">
-                    <span>❤️</span>
-                    <p>HEART RATE</p>
+
+            <!-- HEART -->
+            <article class="health-card heart-card">
+
+                <div class="card-top">
+
+                    <div class="icon heart-icon">
+                        ♡
+                    </div>
+
+                    <span class="card-label">HEART RATE</span>
+
                 </div>
 
-                <h3>
-                    <span id="heartRate">72</span>
-                    <small>BPM</small>
-                </h3>
+                <div class="value-row">
 
-                <div class="progress">
-                    <div id="heartProgress"></div>
+                    <strong id="heartRate">72</strong>
+                    <span>BPM</span>
+
                 </div>
 
-                <p class="range">Normal: 60–100 BPM</p>
-            </div>
-
-
-            <div class="health-card">
-                <div class="card-header">
-                    <span>🫁</span>
-                    <p>OXYGEN LEVEL</p>
+                <div class="mini-chart">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
 
-                <h3>
-                    <span id="oxygen">98</span>
-                    <small>%</small>
-                </h3>
+                <p>Resting range: 60–100 BPM</p>
 
-                <div class="progress">
-                    <div id="oxygenProgress"></div>
+            </article>
+
+
+            <!-- OXYGEN -->
+            <article class="health-card oxygen-card">
+
+                <div class="card-top">
+
+                    <div class="icon oxygen-icon">
+                        ◉
+                    </div>
+
+                    <span class="card-label">OXYGEN SATURATION</span>
+
                 </div>
 
-                <p class="range">Normal: 95–100%</p>
-            </div>
+                <div class="value-row">
 
+                    <strong id="oxygen">98</strong>
+                    <span>%</span>
 
-            <div class="health-card">
-                <div class="card-header">
-                    <span>🌡️</span>
-                    <p>BODY TEMPERATURE</p>
                 </div>
 
-                <h3>
-                    <span id="temperature">36.7</span>
-                    <small>°C</small>
-                </h3>
+                <div class="ring-wrapper">
 
-                <div class="progress">
+                    <div class="oxygen-ring">
+                        <span>O₂</span>
+                    </div>
+
+                    <div>
+                        <small>Safe zone</small>
+                        <b>95–100%</b>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- TEMPERATURE -->
+            <article class="health-card">
+
+                <div class="card-top">
+
+                    <div class="icon temperature-icon">
+                        ◇
+                    </div>
+
+                    <span class="card-label">BODY TEMPERATURE</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="temperature">36.7</strong>
+                    <span>°C</span>
+
+                </div>
+
+                <div class="temperature-track">
                     <div id="temperatureProgress"></div>
                 </div>
 
-                <p class="range">Normal: 36.1–37.2°C</p>
+                <p>Comfort range: 36.1–37.2°C</p>
+
+            </article>
+
+
+            <!-- SLEEP -->
+            <article class="health-card">
+
+                <div class="card-top">
+
+                    <div class="icon sleep-icon">
+                        ☾
+                    </div>
+
+                    <span class="card-label">SLEEP</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="sleep">7.4</strong>
+                    <span>HRS</span>
+
+                </div>
+
+                <div class="sleep-bars">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+                <p>Recommended: 7–9 hours</p>
+
+            </article>
+
+
+            <!-- EXERCISE -->
+            <article class="health-card exercise-card">
+
+                <div class="card-top">
+
+                    <div class="icon exercise-icon">
+                        ↗
+                    </div>
+
+                    <span class="card-label">EXERCISE</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="exercise">54</strong>
+                    <span>MIN</span>
+
+                </div>
+
+                <div class="exercise-circle">
+                    <span>DAILY<br>ACTIVITY</span>
+                </div>
+
+                <p>Target: 30–90 minutes</p>
+
+            </article>
+
+
+            <!-- MISSION -->
+            <article class="health-card mission-card">
+
+                <div class="card-top">
+
+                    <div class="icon mission-icon">
+                        ✦
+                    </div>
+
+                    <span class="card-label">MISSION STATUS</span>
+
+                </div>
+
+                <div class="mission-state">
+                    <span class="mission-dot"></span>
+                    ACTIVE
+                </div>
+
+                <p>
+                    Health telemetry is being
+                    monitored continuously.
+                </p>
+
+                <div class="mission-line"></div>
+
+                <small>
+                    NEXT MEDICAL CHECK • 02:30
+                </small>
+
+            </article>
+
+        </section>
+
+
+        <!-- BOTTOM STATUS -->
+        <section class="bottom-panel">
+
+            <div class="signal">
+
+                <span class="signal-icon">⌁</span>
+
+                <div>
+                    <strong>TELEMETRY LINK ACTIVE</strong>
+                    <p>Receiving simulated biometric data</p>
+                </div>
+
             </div>
 
-
-            <div class="health-card">
-                <div class="card-header">
-                    <span>😴</span>
-                    <p>SLEEP DURATION</p>
-                </div>
-
-                <h3>
-                    <span id="sleep">7.4</span>
-                    <small>HRS</small>
-                </h3>
-
-                <div class="progress">
-                    <div id="sleepProgress"></div>
-                </div>
-
-                <p class="range">Target: 7–9 hours</p>
+            <div class="data-stream">
+                DATA STREAM
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
 
+        </section>
 
-            <div class="health-card">
-                <div class="card-header">
-                    <span>🏃</span>
-                    <p>EXERCISE TIME</p>
-                </div>
+    </main>
 
-                <h3>
-                    <span id="exercise">54</span>
-                    <small>MIN</small>
-                </h3>
 
-                <div class="progress">
-                    <div id="exerciseProgress"></div>
-                </div>
+    <footer>
 
-                <p class="range">Target: 30–90 min</p>
+        <span>ORBITAL HEALTH SYSTEM</span>
+
+        <span>
+            Simulated mission data • Educational prototype
+        </span>
+
+    </footer>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mission Health | Astronaut Monitor</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- TOP NAVIGATION -->
+    <nav class="topbar">
+
+        <div class="brand">
+            <div class="brand-mark">✦</div>
+
+            <div>
+                <strong>ORBITAL HEALTH</strong>
+                <span>CREW WELLNESS SYSTEM</span>
             </div>
+        </div>
+
+        <div class="mission-chip">
+            <span class="live-dot"></span>
+            LIVE MISSION
+        </div>
+
+    </nav>
 
 
-            <div class="health-card mission-card">
-                <div class="card-header">
-                    <span>🛰️</span>
-                    <p>MISSION STATUS</p>
-                </div>
+    <!-- HERO -->
+    <main>
 
-                <h3>ACTIVE</h3>
+        <section class="hero">
 
-                <p class="range">
-                    Monitoring astronaut health continuously
+            <div class="hero-text">
+                <span class="eyebrow">EXPEDITION 42 • ORBITAL MEDICAL BAY</span>
+
+                <h1>
+                    How is the crew<br>
+                    <span>doing today?</span>
+                </h1>
+
+                <p>
+                    Continuous monitoring of astronaut wellness
+                    during long-duration spaceflight.
                 </p>
             </div>
 
-        </section>
 
+            <div class="orbit-visual">
 
-        <!-- Monitoring information -->
-        <section class="monitoring">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
 
-            <div>
-                <span class="pulse"></span>
-                LIVE MONITORING
+                <div class="planet">
+                    <span>🌍</span>
+                </div>
+
+                <div class="satellite">✦</div>
+
             </div>
 
-            <p>
-                Last updated:
-                <strong id="lastUpdated">--:--:--</strong>
-            </p>
+        </section>
+
+
+        <!-- ASTRONAUT PROFILE -->
+        <section class="profile">
+
+            <div class="crew-avatar">
+                👩‍🚀
+            </div>
+
+            <div class="crew-details">
+                <span class="small-label">CREW MEMBER 01</span>
+                <h2>Commander Maya</h2>
+                <p>ISS Expedition Specialist • Medical Status Monitoring</p>
+            </div>
+
+            <div class="mission-clock">
+
+                <div>
+                    <span>MISSION DAY</span>
+                    <strong id="missionDay">DAY 42</strong>
+                </div>
+
+                <div>
+                    <span>MISSION TIME</span>
+                    <strong id="missionTime">00:00:00</strong>
+                </div>
+
+            </div>
+
+            <div id="overallStatus" class="status normal">
+                <span></span>
+                NORMAL
+            </div>
 
         </section>
 
 
-        <footer>
-            <p>NASA Space Apps • Astronaut Health Monitor</p>
-            <p>Prototype using simulated health data</p>
-        </footer>
+        <!-- ALERT -->
+        <div id="alertBox" class="alert hidden">
 
-    </div>
+            <div class="alert-icon">!</div>
 
-    <script src="script.js"></script>
+            <div>
+                <strong id="alertTitle">Health Alert</strong>
+                <p id="alertMessage"></p>
+            </div>
+
+        </div>
+
+
+        <!-- HEALTH PARAMETERS -->
+        <section class="section-heading">
+
+            <div>
+                <span class="eyebrow">BIOMETRIC READINGS</span>
+                <h2>Today's health picture</h2>
+            </div>
+
+            <span class="updated">
+                Updated <strong id="lastUpdated">--:--:--</strong>
+            </span>
+
+        </section>
+
+
+        <section class="health-grid">
+
+
+            <!-- HEART -->
+            <article class="health-card heart-card">
+
+                <div class="card-top">
+
+                    <div class="icon heart-icon">
+                        ♡
+                    </div>
+
+                    <span class="card-label">HEART RATE</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="heartRate">72</strong>
+                    <span>BPM</span>
+
+                </div>
+
+                <div class="mini-chart">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <p>Resting range: 60–100 BPM</p>
+
+            </article>
+
+
+            <!-- OXYGEN -->
+            <article class="health-card oxygen-card">
+
+                <div class="card-top">
+
+                    <div class="icon oxygen-icon">
+                        ◉
+                    </div>
+
+                    <span class="card-label">OXYGEN SATURATION</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="oxygen">98</strong>
+                    <span>%</span>
+
+                </div>
+
+                <div class="ring-wrapper">
+
+                    <div class="oxygen-ring">
+                        <span>O₂</span>
+                    </div>
+
+                    <div>
+                        <small>Safe zone</small>
+                        <b>95–100%</b>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- TEMPERATURE -->
+            <article class="health-card">
+
+                <div class="card-top">
+
+                    <div class="icon temperature-icon">
+                        ◇
+                    </div>
+
+                    <span class="card-label">BODY TEMPERATURE</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="temperature">36.7</strong>
+                    <span>°C</span>
+
+                </div>
+
+                <div class="temperature-track">
+                    <div id="temperatureProgress"></div>
+                </div>
+
+                <p>Comfort range: 36.1–37.2°C</p>
+
+            </article>
+
+
+            <!-- SLEEP -->
+            <article class="health-card">
+
+                <div class="card-top">
+
+                    <div class="icon sleep-icon">
+                        ☾
+                    </div>
+
+                    <span class="card-label">SLEEP</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="sleep">7.4</strong>
+                    <span>HRS</span>
+
+                </div>
+
+                <div class="sleep-bars">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+                <p>Recommended: 7–9 hours</p>
+
+            </article>
+
+
+            <!-- EXERCISE -->
+            <article class="health-card exercise-card">
+
+                <div class="card-top">
+
+                    <div class="icon exercise-icon">
+                        ↗
+                    </div>
+
+                    <span class="card-label">EXERCISE</span>
+
+                </div>
+
+                <div class="value-row">
+
+                    <strong id="exercise">54</strong>
+                    <span>MIN</span>
+
+                </div>
+
+                <div class="exercise-circle">
+                    <span>DAILY<br>ACTIVITY</span>
+                </div>
+
+                <p>Target: 30–90 minutes</p>
+
+            </article>
+
+
+            <!-- MISSION -->
+            <article class="health-card mission-card">
+
+                <div class="card-top">
+
+                    <div class="icon mission-icon">
+                        ✦
+                    </div>
+
+                    <span class="card-label">MISSION STATUS</span>
+
+                </div>
+
+                <div class="mission-state">
+                    <span class="mission-dot"></span>
+                    ACTIVE
+                </div>
+
+                <p>
+                    Health telemetry is being
+                    monitored continuously.
+                </p>
+
+                <div class="mission-line"></div>
+
+                <small>
+                    NEXT MEDICAL CHECK • 02:30
+                </small>
+
+            </article>
+
+        </section>
+
+
+        <!-- BOTTOM STATUS -->
+        <section class="bottom-panel">
+
+            <div class="signal">
+
+                <span class="signal-icon">⌁</span>
+
+                <div>
+                    <strong>TELEMETRY LINK ACTIVE</strong>
+                    <p>Receiving simulated biometric data</p>
+                </div>
+
+            </div>
+
+            <div class="data-stream">
+                DATA STREAM
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <span>ORBITAL HEALTH SYSTEM</span>
+
+        <span>
+            Simulated mission data • Educational prototype
+        </span>
+
+    </footer>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
