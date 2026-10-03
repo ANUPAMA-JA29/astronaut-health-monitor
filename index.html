@@ -5,37 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Orbital Health | Astronaut Health Monitor</title>
+    <title>ORBITAL | Astronaut Health Monitor</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- SPACE BACKGROUND -->
-    <div class="stars"></div>
-    <div class="stars stars-two"></div>
+    <!-- BACKGROUND -->
+    <div class="space-bg"></div>
+    <div class="stars stars-1"></div>
+    <div class="stars stars-2"></div>
+
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
 
 
     <!-- =========================================
-         TOP NAVIGATION
+         HEADER
     ========================================== -->
 
-    <header class="topbar">
+    <header class="top-header">
 
-        <div class="mission-logo">
-            <div class="logo-orbit">◉</div>
+        <div class="brand">
+
+            <div class="brand-symbol">
+                <span></span>
+            </div>
 
             <div>
-                <h1>ORBITAL HEALTH</h1>
-                <span>CREW HEALTH MONITORING SYSTEM</span>
+                <h1>ORBITAL</h1>
+                <p>CREW HEALTH SYSTEM</p>
             </div>
+
         </div>
 
 
-        <div class="mission-live">
-            <span class="live-dot"></span>
-            LIVE TELEMETRY
+        <div class="mission-info">
+
+            <div class="mission-status-dot"></div>
+
+            <div>
+                <span>MISSION TELEMETRY</span>
+                <strong>ONLINE</strong>
+            </div>
+
         </div>
 
     </header>
@@ -43,49 +57,60 @@
 
 
     <!-- =========================================
-         MAIN CONTAINER
+         MAIN DASHBOARD
     ========================================== -->
 
-    <main class="dashboard">
+    <main class="container">
 
 
         <!-- =====================================
-             MISSION HERO
+             HERO
         ====================================== -->
 
-        <section class="hero">
+        <section class="hero-section">
 
-            <div class="hero-content">
+            <div class="hero-left">
 
-                <div class="mission-tag">
-                    <span>MISSION 42</span>
-                    <span class="separator">•</span>
-                    <span>LOW EARTH ORBIT</span>
+                <div class="eyebrow">
+                    <span></span>
+                    SPACECRAFT MEDICAL BAY
                 </div>
 
                 <h2>
-                    Crew Health<br>
-                    <strong>Mission Control</strong>
+                    Astronaut
+                    <span>Health Monitor</span>
                 </h2>
 
-                <p>
-                    Continuous biometric monitoring for
-                    long-duration spaceflight.
+                <p class="hero-description">
+                    Real-time monitoring of crew vital signs
+                    during long-duration spaceflight.
                 </p>
 
 
-                <div class="mission-clock">
+                <!-- MISSION TIME -->
 
-                    <div>
-                        <small>MISSION DAY</small>
-                        <strong id="missionDay">DAY 42</strong>
+                <div class="mission-time-box">
+
+                    <div class="time-item">
+
+                        <span>MISSION DAY</span>
+
+                        <strong id="missionDay">
+                            DAY 42
+                        </strong>
+
                     </div>
 
-                    <div class="clock-divider"></div>
+                    <div class="time-line"></div>
 
-                    <div>
-                        <small>ELAPSED TIME</small>
-                        <strong id="missionTime">00:00:00</strong>
+                    <div class="time-item">
+
+                        <span>MISSION ELAPSED</span>
+
+                        <strong id="missionTime">
+                            00:00:00
+                        </strong>
+
                     </div>
 
                 </div>
@@ -93,20 +118,28 @@
             </div>
 
 
-            <!-- ORBIT VISUAL -->
 
-            <div class="orbit-system">
+            <!-- =================================
+                 ORBITAL VISUAL
+            ================================== -->
 
-                <div class="orbit orbit-1"></div>
-                <div class="orbit orbit-2"></div>
-                <div class="orbit orbit-3"></div>
+            <div class="space-visual">
+
+                <div class="orbit orbit-a"></div>
+                <div class="orbit orbit-b"></div>
+                <div class="orbit orbit-c"></div>
+
+                <div class="planet-glow"></div>
 
                 <div class="planet">
-                    🌍
+                    <div class="planet-land"></div>
+                    <div class="planet-land land-two"></div>
                 </div>
 
                 <div class="satellite">
-                    🛰️
+                    <div class="satellite-body"></div>
+                    <div class="solar-panel left-panel"></div>
+                    <div class="solar-panel right-panel"></div>
                 </div>
 
             </div>
@@ -116,43 +149,57 @@
 
 
         <!-- =====================================
-             ASTRONAUT STATUS
+             CREW PROFILE
         ====================================== -->
 
-        <section class="crew-section">
+        <section class="crew-panel">
 
-            <div class="crew-card">
+            <div class="crew-avatar">
 
-                <div class="astronaut-avatar">
-                    👨‍🚀
+                <div class="helmet">
+                    <div class="helmet-glass"></div>
                 </div>
 
-                <div class="crew-info">
+            </div>
 
-                    <span class="section-label">
-                        CREW MEMBER 01
+
+            <div class="crew-details">
+
+                <span class="mini-label">
+                    CREW MEMBER 01
+                </span>
+
+                <h3>
+                    Commander Maya
+                </h3>
+
+                <p>
+                    ISS Expedition Specialist
+                </p>
+
+                <div class="crew-meta">
+
+                    <span>
+                        ● MEDICAL MONITORING
                     </span>
 
-                    <h3>Commander Maya</h3>
-
-                    <p>
-                        ISS Expedition Specialist
-                    </p>
-
-                    <span class="medical-label">
-                        ● MEDICAL MONITORING ACTIVE
+                    <span>
+                        ORBITAL SECTOR A-17
                     </span>
 
                 </div>
 
+            </div>
 
-                <div
-                    id="overallStatus"
-                    class="status normal"
-                >
-                    <span></span>
-                    NORMAL
-                </div>
+
+            <div
+                id="overallStatus"
+                class="status normal"
+            >
+
+                <span></span>
+
+                NORMAL
 
             </div>
 
@@ -169,11 +216,11 @@
             class="alert-box hidden"
         >
 
-            <div class="alert-symbol">
-                ⚠
+            <div class="alert-icon">
+                !
             </div>
 
-            <div>
+            <div class="alert-content">
 
                 <strong id="alertTitle">
                     HEALTH ALERT
@@ -185,37 +232,49 @@
 
             </div>
 
+            <div class="alert-line"></div>
+
         </section>
 
 
 
         <!-- =====================================
-             TELEMETRY HEADER
+             TELEMETRY TITLE
         ====================================== -->
 
-        <div class="telemetry-heading">
+        <section class="telemetry-header">
 
             <div>
-                <span class="section-label">
+
+                <span class="mini-label">
                     LIVE BIOMETRIC TELEMETRY
                 </span>
 
                 <h2>
-                    Today's Health Readings
+                    Crew Health Readings
                 </h2>
+
             </div>
 
-            <div class="updated">
-                LAST UPDATE
-                <strong id="lastUpdated">--:--:--</strong>
+
+            <div class="last-update">
+
+                <span>
+                    LAST SYNCHRONIZATION
+                </span>
+
+                <strong id="lastUpdated">
+                    --:--:--
+                </strong>
+
             </div>
 
-        </div>
+        </section>
 
 
 
         <!-- =====================================
-             HEALTH GRID
+             HEALTH CARDS
         ====================================== -->
 
         <section class="health-grid">
@@ -225,41 +284,52 @@
 
             <article class="health-card">
 
-                <div class="card-top">
-                    <span class="card-icon">♡</span>
+                <div class="card-header">
 
-                    <span class="signal">
-                        ● LIVE
+                    <div class="card-icon heart">
+                        ♡
+                    </div>
+
+                    <span class="live-label">
+                        LIVE
                     </span>
+
                 </div>
 
-                <span class="card-label">
+                <span class="card-title">
                     HEART RATE
                 </span>
 
-                <div class="metric">
+                <div class="value-row">
 
                     <strong id="heartRate">
                         72
                     </strong>
 
-                    <span>BPM</span>
+                    <span>
+                        BPM
+                    </span>
 
                 </div>
 
-                <div class="telemetry-line">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="wave">
+
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+
                 </div>
 
-                <small>
-                    Normal range: 60–100 BPM
-                </small>
+                <p>
+                    Resting range: 60–100 BPM
+                </p>
 
             </article>
 
@@ -269,28 +339,28 @@
 
             <article class="health-card oxygen-card">
 
-                <div class="card-top">
+                <div class="card-header">
 
-                    <span class="card-icon">
-                        ◉
-                    </span>
-
-                    <span class="signal">
+                    <div class="card-icon">
                         O₂
+                    </div>
+
+                    <span class="live-label">
+                        OXYGEN
                     </span>
 
                 </div>
 
-                <span class="card-label">
+                <span class="card-title">
                     OXYGEN SATURATION
                 </span>
 
 
-                <div class="oxygen-display">
+                <div class="oxygen-area">
 
                     <div class="oxygen-ring">
 
-                        <div class="oxygen-inner">
+                        <div class="oxygen-center">
 
                             <strong id="oxygen">
                                 98
@@ -304,10 +374,9 @@
 
                 </div>
 
-
-                <small>
+                <p>
                     Safe zone: 95–100%
-                </small>
+                </p>
 
             </article>
 
@@ -317,45 +386,53 @@
 
             <article class="health-card">
 
-                <div class="card-top">
+                <div class="card-header">
 
-                    <span class="card-icon">
+                    <div class="card-icon">
                         ◇
-                    </span>
+                    </div>
 
-                    <span class="signal">
+                    <span class="live-label">
                         TEMP
                     </span>
 
                 </div>
 
-                <span class="card-label">
+                <span class="card-title">
                     BODY TEMPERATURE
                 </span>
 
-                <div class="metric">
+                <div class="value-row">
 
                     <strong id="temperature">
                         36.7
                     </strong>
 
-                    <span>°C</span>
+                    <span>
+                        °C
+                    </span>
 
                 </div>
 
 
-                <div class="temperature-bar">
+                <div class="range-bar">
 
                     <div
                         id="temperatureProgress"
-                        class="temperature-progress"
+                        class="range-fill"
                     ></div>
 
                 </div>
 
-                <small>
+                <div class="range-labels">
+                    <span>LOW</span>
+                    <span>NORMAL</span>
+                    <span>HIGH</span>
+                </div>
+
+                <p>
                     Comfort range: 36.1–37.2°C
-                </small>
+                </p>
 
             </article>
 
@@ -365,41 +442,50 @@
 
             <article class="health-card">
 
-                <div class="card-top">
+                <div class="card-header">
 
-                    <span class="card-icon">
+                    <div class="card-icon">
                         ◐
-                    </span>
+                    </div>
 
-                    <span class="signal">
+                    <span class="live-label">
                         REST
                     </span>
 
                 </div>
 
-                <span class="card-label">
+                <span class="card-title">
                     SLEEP DURATION
                 </span>
 
-                <div class="metric">
+                <div class="value-row">
 
                     <strong id="sleep">
                         7.4
                     </strong>
 
-                    <span>HRS</span>
+                    <span>
+                        HRS
+                    </span>
 
                 </div>
 
-                <div class="sleep-track">
+                <div class="sleep-visual">
 
-                    <div class="sleep-progress"></div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
 
                 </div>
 
-                <small>
+                <p>
                     Recommended: 7–9 hours
-                </small>
+                </p>
 
             </article>
 
@@ -409,84 +495,101 @@
 
             <article class="health-card">
 
-                <div class="card-top">
+                <div class="card-header">
 
-                    <span class="card-icon">
+                    <div class="card-icon">
                         ↗
-                    </span>
+                    </div>
 
-                    <span class="signal">
+                    <span class="live-label">
                         ACTIVITY
                     </span>
 
                 </div>
 
-                <span class="card-label">
+                <span class="card-title">
                     EXERCISE TIME
                 </span>
 
-                <div class="metric">
+                <div class="value-row">
 
                     <strong id="exercise">
                         54
                     </strong>
 
-                    <span>MIN</span>
+                    <span>
+                        MIN
+                    </span>
 
                 </div>
 
-                <div class="exercise-bars">
+                <div class="activity-bars">
 
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
 
                 </div>
 
-                <small>
+                <p>
                     Daily target: 30–90 minutes
-                </small>
+                </p>
 
             </article>
 
 
 
-            <!-- MISSION STATUS -->
+            <!-- MISSION -->
 
             <article class="health-card mission-card">
 
-                <div class="card-top">
+                <div class="card-header">
 
-                    <span class="card-icon">
+                    <div class="card-icon">
                         ✦
-                    </span>
+                    </div>
 
-                    <span class="signal">
+                    <span class="live-label">
                         SYSTEM
                     </span>
 
                 </div>
 
-                <span class="card-label">
+                <span class="card-title">
                     MISSION STATUS
                 </span>
 
-                <div class="mission-status">
+                <div class="mission-active">
                     ACTIVE
                 </div>
 
-                <p>
-                    Health telemetry is being
-                    monitored continuously.
-                </p>
+                <div class="system-info">
 
-                <small>
-                    NEXT MEDICAL CHECK • 02:30
-                </small>
+                    <div>
+                        <span></span>
+                        TELEMETRY LINK
+                    </div>
+
+                    <div>
+                        <span></span>
+                        LIFE SUPPORT
+                    </div>
+
+                    <div>
+                        <span></span>
+                        MEDICAL BAY
+                    </div>
+
+                </div>
+
+                <p>
+                    All monitoring systems operational.
+                </p>
 
             </article>
 
@@ -495,33 +598,34 @@
 
 
         <!-- =====================================
-             TELEMETRY FOOTER PANEL
+             TELEMETRY CONNECTION
         ====================================== -->
 
-        <section class="telemetry-panel">
+        <section class="connection-panel">
 
-            <div class="antenna">
+            <div class="connection-icon">
                 ◈
             </div>
 
-            <div>
+            <div class="connection-text">
 
                 <strong>
-                    TELEMETRY LINK ACTIVE
+                    DEEP SPACE TELEMETRY LINK
                 </strong>
 
                 <p>
-                    Receiving simulated biometric
-                    data from orbital crew module.
+                    Receiving simulated biometric data
+                    from spacecraft medical module.
                 </p>
 
             </div>
 
-            <div class="data-status">
+
+            <div class="connection-status">
 
                 <span></span>
 
-                DATA STREAM
+                DATA STREAM ACTIVE
 
             </div>
 
@@ -535,17 +639,17 @@
 
         <footer>
 
-            <span>
+            <div>
                 ORBITAL HEALTH SYSTEM
-            </span>
+            </div>
 
-            <span>
-                SIMULATED MISSION DATA
-            </span>
+            <div>
+                MISSION 42
+            </div>
 
-            <span>
-                EDUCATIONAL PROTOTYPE
-            </span>
+            <div>
+                SIMULATED DATA • EDUCATIONAL PROTOTYPE
+            </div>
 
         </footer>
 
