@@ -2,661 +2,2895 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ORBITAL | Astronaut Health Monitor</title>
+<meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>ORBITAL | Astronaut Health Monitor</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --bg:#020817;
+    --bg2:#06152b;
+
+    --blue:#3daeff;
+    --blue2:#75d7ff;
+    --cyan:#55e4df;
+
+    --white:#f4f9ff;
+    --muted:#7f96ad;
+
+    --green:#43dfa0;
+    --orange:#ffb94f;
+    --red:#ff5871;
+
+    --border:rgba(89,174,255,.16);
+
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:var(--white);
+
+    background:
+
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(28,116,190,.22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(44,73,190,.18),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(18,92,160,.16),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            145deg,
+            #020713,
+            #041329 50%,
+            #020817
+        );
+
+    overflow-x:hidden;
+
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.55;
+
+    background-image:
+
+        radial-gradient(
+            1px 1px at 20px 30px,
+            white,
+            transparent
+        ),
+
+        radial-gradient(
+            1px 1px at 90px 80px,
+            #7bd7ff,
+            transparent
+        ),
+
+        radial-gradient(
+            1px 1px at 150px 140px,
+            white,
+            transparent
+        ),
+
+        radial-gradient(
+            1px 1px at 220px 60px,
+            #8edfff,
+            transparent
+        ),
+
+        radial-gradient(
+            1px 1px at 280px 180px,
+            white,
+            transparent
+        );
+
+    background-size:
+        320px 230px;
+
+    z-index:-2;
+
+}
+
+
+/* =====================================================
+   SOFT GLOW
+===================================================== */
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+
+    height:500px;
+
+    border-radius:50%;
+
+    background:
+        rgba(40,145,255,.08);
+
+    filter:blur(100px);
+
+    top:-250px;
+
+    right:-180px;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+
+    height:74px;
+
+    padding:
+        0 clamp(18px,6vw,75px);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:
+        rgba(2,8,22,.72);
+
+    border-bottom:
+        1px solid
+        rgba(90,177,255,.12);
+
+    backdrop-filter:blur(15px);
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+.logo{
+
+    width:39px;
+
+    height:39px;
+
+    border:1px solid var(--blue2);
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    position:relative;
+
+    box-shadow:
+        0 0 22px
+        rgba(61,174,255,.18);
+
+}
+
+
+.logo::before{
+
+    content:"";
+
+    width:23px;
+
+    height:9px;
+
+    border:1px solid var(--blue2);
+
+    border-radius:50%;
+
+    position:absolute;
+
+    transform:rotate(-25deg);
+
+}
+
+
+.logo::after{
+
+    content:"";
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--blue2);
+
+    box-shadow:
+        0 0 10px var(--blue2);
+
+}
+
+
+.brand h1{
+
+    font-size:15px;
+
+    letter-spacing:3px;
+
+}
+
+
+.brand p{
+
+    color:var(--muted);
+
+    font-size:7px;
+
+    letter-spacing:2px;
+
+    margin-top:3px;
+
+}
+
+
+.live{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+    border:
+        1px solid
+        rgba(67,223,160,.18);
+
+    background:
+        rgba(67,223,160,.035);
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+    color:var(--green);
+
+}
+
+
+.live-dot{
+
+    width:6px;
+
+    height:6px;
+
+    background:var(--green);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 9px var(--green);
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+
+    width:min(1150px,92%);
+
+    margin:auto;
+
+    padding:
+        45px 0 25px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    min-height:350px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:
+        1px solid
+        rgba(90,177,255,.12);
+
+}
+
+
+.hero-content{
+
+    max-width:570px;
+
+}
+
+
+.eyebrow{
+
+    color:var(--blue2);
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+    margin-bottom:18px;
+
+}
+
+
+.eyebrow span{
+
+    display:inline-block;
+
+    width:17px;
+
+    height:1px;
+
+    background:var(--blue);
+
+    vertical-align:middle;
+
+    margin-right:7px;
+
+}
+
+
+.hero h2{
+
+    font-size:
+        clamp(40px,6vw,68px);
+
+    line-height:.95;
+
+    font-weight:300;
+
+    letter-spacing:-2px;
+
+}
+
+
+.hero h2 span{
+
+    display:block;
+
+    color:var(--blue2);
+
+    font-weight:600;
+
+}
+
+
+.hero p{
+
+    color:var(--muted);
+
+    max-width:450px;
+
+    line-height:1.7;
+
+    font-size:13px;
+
+    margin-top:20px;
+
+}
+
+
+/* =====================================================
+   MISSION TIME
+===================================================== */
+
+.mission-time{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:22px;
+
+    width:max-content;
+
+    margin-top:28px;
+
+    padding:
+        14px 20px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(20,58,94,.5),
+            rgba(5,20,39,.5)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+}
+
+
+.time span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:7px;
+
+    letter-spacing:1.5px;
+
+    margin-bottom:5px;
+
+}
+
+
+.time strong{
+
+    font-size:16px;
+
+}
+
+
+.divider{
+
+    width:1px;
+
+    height:30px;
+
+    background:
+        rgba(100,180,255,.18);
+
+}
+
+
+/* =====================================================
+   ORBIT VISUAL
+===================================================== */
+
+.space{
+
+    width:320px;
+
+    height:320px;
+
+    position:relative;
+
+    display:grid;
+
+    place-items:center;
+
+}
+
+
+.earth{
+
+    width:110px;
+
+    height:110px;
+
+    border-radius:50%;
+
+    position:relative;
+
+    z-index:3;
+
+    background:
+
+        radial-gradient(
+            circle at 30% 25%,
+            #79dcff,
+            #2778b9 40%,
+            #0a2b50 75%,
+            #020914
+        );
+
+    box-shadow:
+
+        inset -20px -15px 35px
+        rgba(0,0,0,.55),
+
+        0 0 40px
+        rgba(43,160,255,.25);
+
+}
+
+
+.earth::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:48px;
+
+    height:21px;
+
+    background:
+        rgba(74,186,130,.38);
+
+    border-radius:50%;
+
+    top:25px;
+
+    left:20px;
+
+    transform:rotate(-15deg);
+
+}
+
+
+.earth::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:35px;
+
+    height:24px;
+
+    background:
+        rgba(74,186,130,.32);
+
+    border-radius:50%;
+
+    top:58px;
+
+    left:56px;
+
+}
+
+
+.orbit{
+
+    position:absolute;
+
+    border:
+        1px solid
+        rgba(69,181,255,.24);
+
+    border-radius:50%;
+
+}
+
+
+.orbit1{
+
+    width:230px;
+
+    height:95px;
+
+    transform:rotate(-20deg);
+
+}
+
+
+.orbit2{
+
+    width:270px;
+
+    height:135px;
+
+    transform:rotate(30deg);
+
+}
+
+
+.orbit3{
+
+    width:190px;
+
+    height:190px;
+
+    border-color:
+        rgba(85,228,223,.13);
+
+}
+
+
+/* =====================================================
+   SATELLITE
+===================================================== */
+
+.satellite{
+
+    position:absolute;
+
+    top:47px;
+
+    right:20px;
+
+    z-index:5;
+
+    animation:
+        float 5s ease-in-out infinite;
+
+}
+
+
+.sat-body{
+
+    width:25px;
+
+    height:17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e3f3ff,
+            #718da4
+        );
+
+    border-radius:3px;
+
+}
+
+
+.panel{
+
+    position:absolute;
+
+    width:25px;
+
+    height:12px;
+
+    top:2px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #164e82 0,
+            #164e82 4px,
+            #2678b7 4px,
+            #2678b7 5px
+        );
+
+    border:
+        1px solid
+        #4f9ed2;
+
+}
+
+
+.panel.left{
+
+    right:22px;
+
+}
+
+
+.panel.right{
+
+    left:22px;
+
+}
+
+
+@keyframes float{
+
+    50%{
+
+        transform:
+            translate(-18px,20px)
+            rotate(5deg);
+
+    }
+
+}
+
+
+/* =====================================================
+   CREW
+===================================================== */
+
+.crew{
+
+    margin-top:27px;
+
+    padding:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    background:
+        linear-gradient(
+            110deg,
+            rgba(10,35,63,.82),
+            rgba(4,16,31,.75)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+}
+
+
+.astronaut{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:12px;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:32px;
+
+    background:
+        rgba(53,158,235,.08);
+
+    border:
+        1px solid
+        rgba(80,177,255,.18);
+
+}
+
+
+.crew-info{
+
+    flex:1;
+
+}
+
+
+.label{
+
+    color:var(--muted);
+
+    font-size:7px;
+
+    letter-spacing:1.7px;
+
+}
+
+
+.crew-info h3{
+
+    font-size:21px;
+
+    margin-top:4px;
+
+}
+
+
+.crew-info p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:4px;
+
+}
+
+
+.meta{
+
+    margin-top:8px;
+
+    color:var(--green);
+
+    font-size:7px;
+
+    letter-spacing:1px;
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status{
+
+    min-width:115px;
+
+    padding:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    border-radius:8px;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+    font-weight:bold;
+
+}
+
+
+.status span{
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+}
+
+
+.normal{
+
+    color:var(--green);
+
+    background:
+        rgba(67,223,160,.06);
+
+    border:
+        1px solid
+        rgba(67,223,160,.2);
+
+}
+
+
+.normal span{
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 8px var(--green);
+
+}
+
+
+.warning{
+
+    color:var(--orange);
+
+    background:
+        rgba(255,185,79,.06);
+
+    border:
+        1px solid
+        rgba(255,185,79,.25);
+
+}
+
+
+.warning span{
+
+    background:var(--orange);
+
+}
+
+
+.critical{
+
+    color:var(--red);
+
+    background:
+        rgba(255,88,113,.07);
+
+    border:
+        1px solid
+        rgba(255,88,113,.3);
+
+}
+
+
+.critical span{
+
+    background:var(--red);
+
+    box-shadow:
+        0 0 8px var(--red);
+
+}
+
+
+/* =====================================================
+   ALERT
+===================================================== */
+
+.alert{
+
+    margin-top:15px;
+
+    padding:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    border:
+        1px solid
+        rgba(255,88,113,.3);
+
+    border-radius:10px;
+
+    background:
+        rgba(80,18,34,.3);
+
+}
+
+
+.alert-icon{
+
+    width:32px;
+
+    height:32px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        var(--red);
+
+    color:var(--red);
+
+}
+
+
+.alert strong{
+
+    color:var(--red);
+
+    font-size:9px;
+
+    letter-spacing:1.4px;
+
+}
+
+
+.alert p{
+
+    color:#c99ba4;
+
+    font-size:9px;
+
+    margin-top:4px;
+
+}
+
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+/* =====================================================
+   TELEMETRY HEADER
+===================================================== */
+
+.telemetry-head{
+
+    margin-top:40px;
+
+    margin-bottom:15px;
+
+    display:flex;
+
+    align-items:end;
+
+    justify-content:space-between;
+
+}
+
+
+.telemetry-head h2{
+
+    font-size:25px;
+
+    font-weight:500;
+
+    margin-top:5px;
+
+}
+
+
+.update{
+
+    text-align:right;
+
+    color:var(--muted);
+
+    font-size:7px;
+
+    letter-spacing:1px;
+
+}
+
+
+.update strong{
+
+    display:block;
+
+    color:var(--blue2);
+
+    font-size:11px;
+
+    margin-top:4px;
+
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:13px;
+
+}
+
+
+.card{
+
+    min-height:200px;
+
+    padding:19px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9,30,55,.86),
+            rgba(3,14,28,.84)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.25s;
+
+}
+
+
+.card:hover{
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(70,180,255,.3);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.25);
+
+}
+
+
+.card-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:22px;
+
+}
+
+
+.icon{
+
+    width:30px;
+
+    height:30px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:var(--blue2);
+
+    border-radius:8px;
+
+    background:
+        rgba(55,169,255,.07);
+
+    border:
+        1px solid
+        rgba(55,169,255,.13);
+
+}
+
+
+.card-name{
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    letter-spacing:1.4px;
+
+}
+
+
+.value{
+
+    display:flex;
+
+    align-items:baseline;
+
+    gap:5px;
+
+    margin-top:6px;
+
+}
+
+
+.value strong{
+
+    font-size:35px;
+
+    font-weight:500;
+
+}
+
+
+.value span{
+
+    color:var(--blue2);
+
+    font-size:9px;
+
+}
+
+
+.card small{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:14px;
+
+}
+
+
+/* =====================================================
+   HEART GRAPH
+===================================================== */
+
+.wave{
+
+    height:25px;
+
+    display:flex;
+
+    align-items:end;
+
+    gap:3px;
+
+    margin-top:8px;
+
+}
+
+
+.wave i{
+
+    width:8px;
+
+    background:
+        linear-gradient(
+            to top,
+            #2386cb,
+            #65d6ff
+        );
+
+    border-radius:3px;
+
+}
+
+
+.wave i:nth-child(1){height:7px}
+.wave i:nth-child(2){height:14px}
+.wave i:nth-child(3){height:9px}
+.wave i:nth-child(4){height:22px}
+.wave i:nth-child(5){height:12px}
+.wave i:nth-child(6){height:20px}
+.wave i:nth-child(7){height:8px}
+.wave i:nth-child(8){height:16px}
+
+
+/* =====================================================
+   OXYGEN
+===================================================== */
+
+.oxygen-wrap{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:-2px;
+
+}
+
+
+.oxygen-ring{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    background:
+        conic-gradient(
+            var(--blue2) 98%,
+            rgba(255,255,255,.05) 98%
+        );
+
+}
+
+
+.oxygen-inner{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    background:#061426;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:baseline;
+
+    padding-top:22px;
+
+}
+
+
+.oxygen-inner strong{
+
+    font-size:25px;
+
+}
+
+
+.oxygen-inner span{
+
+    color:var(--blue2);
+
+    font-size:9px;
+
+}
+
+
+/* =====================================================
+   BARS
+===================================================== */
+
+.bar{
+
+    height:5px;
+
+    margin-top:21px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+
+.bar-fill{
+
+    height:100%;
+
+    width:45%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2c9fff,
+            #5be4df
+        );
+
+    border-radius:10px;
+
+    transition:
+        width .5s;
+
+}
+
+
+.bar-labels{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#4c637a;
+
+    font-size:6px;
+
+    margin-top:5px;
+
+}
+
+
+/* =====================================================
+   SLEEP / EXERCISE
+===================================================== */
+
+.bars{
+
+    height:28px;
+
+    display:flex;
+
+    align-items:end;
+
+    gap:4px;
+
+    margin-top:13px;
+
+}
+
+
+.bars span{
+
+    width:11px;
+
+    border-radius:3px 3px 1px 1px;
+
+    background:
+        linear-gradient(
+            to top,
+            #247cc1,
+            #5cd8df
+        );
+
+    opacity:.75;
+
+}
+
+
+.bars span:nth-child(1){height:7px}
+.bars span:nth-child(2){height:14px}
+.bars span:nth-child(3){height:20px}
+.bars span:nth-child(4){height:25px}
+.bars span:nth-child(5){height:17px}
+.bars span:nth-child(6){height:22px}
+.bars span:nth-child(7){height:14px}
+.bars span:nth-child(8){height:10px}
+
+
+/* =====================================================
+   MISSION CARD
+===================================================== */
+
+.active{
+
+    color:var(--green);
+
+    font-size:25px;
+
+    margin-top:8px;
+
+}
+
+
+.system{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+
+    margin-top:11px;
+
+    color:var(--muted);
+
+    font-size:7px;
+
+}
+
+
+.system span{
+
+    display:inline-block;
+
+    width:5px;
+
+    height:5px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    margin-right:5px;
+
+}
+
+
+/* =====================================================
+   TELEMETRY LINK
+===================================================== */
+
+.connection{
+
+    margin-top:18px;
+
+    padding:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    border:
+        1px solid
+        rgba(85,228,223,.14);
+
+    border-radius:10px;
+
+    background:
+        rgba(5,32,44,.5);
+
+}
+
+
+.connection-icon{
+
+    color:var(--cyan);
+
+    font-size:22px;
+
+}
+
+
+.connection-text{
+
+    flex:1;
+
+}
+
+
+.connection-text strong{
+
+    display:block;
+
+    color:var(--cyan);
+
+    font-size:8px;
+
+    letter-spacing:1.4px;
+
+}
+
+
+.connection-text p{
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:4px;
+
+}
+
+
+.connection-status{
+
+    color:var(--green);
+
+    font-size:7px;
+
+    letter-spacing:1px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:
+        22px 0 8px;
+
+    color:#40566d;
+
+    font-size:7px;
+
+    letter-spacing:1px;
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:850px){
+
+    .space{
+
+        width:250px;
+
+        height:250px;
+
+        transform:scale(.85);
+
+    }
+
+    .grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:650px){
+
+    header{
+
+        height:65px;
+
+        padding:0 17px;
+
+    }
+
+    .brand h1{
+
+        font-size:13px;
+
+    }
+
+    .brand p{
+
+        font-size:6px;
+
+    }
+
+    .live{
+
+        font-size:7px;
+
+        padding:7px 9px;
+
+    }
+
+    .container{
+
+        width:91%;
+
+        padding-top:30px;
+
+    }
+
+    .hero{
+
+        min-height:530px;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .hero h2{
+
+        font-size:44px;
+
+    }
+
+    .space{
+
+        align-self:center;
+
+        margin-top:-5px;
+
+    }
+
+    .mission-time{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .crew{
+
+        flex-wrap:wrap;
+
+    }
+
+    .status{
+
+        width:100%;
+
+    }
+
+    .telemetry-head{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+
+    }
+
+    .update{
+
+        text-align:left;
+
+    }
+
+    .grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:9px;
+
+    }
+
+    .card{
+
+        min-height:185px;
+
+        padding:14px;
+
+    }
+
+    .value strong{
+
+        font-size:28px;
+
+    }
+
+    .connection{
+
+        flex-wrap:wrap;
+
+    }
+
+    .connection-status{
+
+        width:100%;
+
+        margin-left:36px;
+
+    }
+
+    footer{
+
+        flex-direction:column;
+
+        gap:7px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media(max-width:400px){
+
+    .hero h2{
+
+        font-size:38px;
+
+    }
+
+    .grid{
+
+        gap:8px;
+
+    }
+
+    .card{
+
+        padding:12px;
+
+    }
+
+    .value strong{
+
+        font-size:24px;
+
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-    <!-- BACKGROUND -->
-    <div class="space-bg"></div>
-    <div class="stars stars-1"></div>
-    <div class="stars stars-2"></div>
 
-    <div class="glow glow-one"></div>
-    <div class="glow glow-two"></div>
+<!-- =================================================
+     HEADER
+================================================= -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="logo"></div>
+
+        <div>
+
+            <h1>ORBITAL</h1>
+
+            <p>CREW HEALTH SYSTEM</p>
+
+        </div>
+
+    </div>
 
 
-    <!-- =========================================
-         HEADER
-    ========================================== -->
+    <div class="live">
 
-    <header class="top-header">
+        <span class="live-dot"></span>
 
-        <div class="brand">
+        MISSION TELEMETRY ONLINE
 
-            <div class="brand-symbol">
-                <span></span>
-            </div>
+    </div>
 
-            <div>
-                <h1>ORBITAL</h1>
-                <p>CREW HEALTH SYSTEM</p>
-            </div>
+</header>
+
+
+
+<main class="container">
+
+
+<!-- =================================================
+     HERO
+================================================= -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+
+            <span></span>
+
+            SPACECRAFT MEDICAL BAY
 
         </div>
 
 
-        <div class="mission-info">
+        <h2>
 
-            <div class="mission-status-dot"></div>
+            Astronaut
 
-            <div>
-                <span>MISSION TELEMETRY</span>
-                <strong>ONLINE</strong>
+            <span>Health Monitor</span>
+
+        </h2>
+
+
+        <p>
+
+            Real-time monitoring of crew vital signs
+            during long-duration spaceflight.
+
+        </p>
+
+
+        <div class="mission-time">
+
+            <div class="time">
+
+                <span>MISSION DAY</span>
+
+                <strong id="missionDay">
+                    DAY 42
+                </strong>
+
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <div class="time">
+
+                <span>MISSION ELAPSED</span>
+
+                <strong id="missionTime">
+                    00:00:00
+                </strong>
+
             </div>
 
         </div>
 
-    </header>
+    </div>
 
 
 
-    <!-- =========================================
-         MAIN DASHBOARD
-    ========================================== -->
+    <!-- SPACE VISUAL -->
 
-    <main class="container">
+    <div class="space">
 
+        <div class="orbit orbit1"></div>
 
-        <!-- =====================================
-             HERO
-        ====================================== -->
+        <div class="orbit orbit2"></div>
 
-        <section class="hero-section">
+        <div class="orbit orbit3"></div>
 
-            <div class="hero-left">
 
-                <div class="eyebrow">
-                    <span></span>
-                    SPACECRAFT MEDICAL BAY
-                </div>
+        <div class="earth"></div>
 
-                <h2>
-                    Astronaut
-                    <span>Health Monitor</span>
-                </h2>
 
-                <p class="hero-description">
-                    Real-time monitoring of crew vital signs
-                    during long-duration spaceflight.
-                </p>
+        <div class="satellite">
 
+            <div class="panel left"></div>
 
-                <!-- MISSION TIME -->
+            <div class="sat-body"></div>
 
-                <div class="mission-time-box">
+            <div class="panel right"></div>
 
-                    <div class="time-item">
+        </div>
 
-                        <span>MISSION DAY</span>
+    </div>
 
-                        <strong id="missionDay">
-                            DAY 42
-                        </strong>
 
-                    </div>
+</section>
 
-                    <div class="time-line"></div>
 
-                    <div class="time-item">
 
-                        <span>MISSION ELAPSED</span>
+<!-- =================================================
+     CREW
+================================================= -->
 
-                        <strong id="missionTime">
-                            00:00:00
-                        </strong>
+<section class="crew">
 
-                    </div>
 
-                </div>
+    <div class="astronaut">
+        👨‍🚀
+    </div>
 
-            </div>
 
+    <div class="crew-info">
 
+        <span class="label">
+            CREW MEMBER 01
+        </span>
 
-            <!-- =================================
-                 ORBITAL VISUAL
-            ================================== -->
 
-            <div class="space-visual">
+        <h3>
+            Commander Maya
+        </h3>
 
-                <div class="orbit orbit-a"></div>
-                <div class="orbit orbit-b"></div>
-                <div class="orbit orbit-c"></div>
 
-                <div class="planet-glow"></div>
+        <p>
+            ISS Expedition Specialist
+        </p>
 
-                <div class="planet">
-                    <div class="planet-land"></div>
-                    <div class="planet-land land-two"></div>
-                </div>
 
-                <div class="satellite">
-                    <div class="satellite-body"></div>
-                    <div class="solar-panel left-panel"></div>
-                    <div class="solar-panel right-panel"></div>
-                </div>
+        <div class="meta">
+            ● MEDICAL MONITORING ACTIVE
+        </div>
 
-            </div>
+    </div>
 
-        </section>
 
+    <div
+        id="overallStatus"
+        class="status normal"
+    >
 
+        <span></span>
 
-        <!-- =====================================
-             CREW PROFILE
-        ====================================== -->
+        NORMAL
 
-        <section class="crew-panel">
+    </div>
 
-            <div class="crew-avatar">
 
-                <div class="helmet">
-                    <div class="helmet-glass"></div>
-                </div>
+</section>
 
-            </div>
 
 
-            <div class="crew-details">
+<!-- =================================================
+     ALERT
+================================================= -->
 
-                <span class="mini-label">
-                    CREW MEMBER 01
-                </span>
+<section
+    id="alertBox"
+    class="alert hidden"
+>
 
-                <h3>
-                    Commander Maya
-                </h3>
+    <div class="alert-icon">
+        !
+    </div>
 
-                <p>
-                    ISS Expedition Specialist
-                </p>
 
-                <div class="crew-meta">
+    <div>
 
-                    <span>
-                        ● MEDICAL MONITORING
-                    </span>
+        <strong id="alertTitle">
+            HEALTH ALERT
+        </strong>
 
-                    <span>
-                        ORBITAL SECTOR A-17
-                    </span>
 
-                </div>
+        <p id="alertMessage">
+            Monitoring astronaut health.
+        </p>
 
-            </div>
+    </div>
 
+</section>
 
-            <div
-                id="overallStatus"
-                class="status normal"
-            >
 
-                <span></span>
 
-                NORMAL
+<!-- =================================================
+     TELEMETRY TITLE
+================================================= -->
 
-            </div>
+<section class="telemetry-head">
 
-        </section>
 
+    <div>
 
+        <span class="label">
+            LIVE BIOMETRIC TELEMETRY
+        </span>
 
-        <!-- =====================================
-             ALERT
-        ====================================== -->
 
-        <section
-            id="alertBox"
-            class="alert-box hidden"
-        >
+        <h2>
+            Crew Health Readings
+        </h2>
 
-            <div class="alert-icon">
-                !
-            </div>
+    </div>
 
-            <div class="alert-content">
 
-                <strong id="alertTitle">
-                    HEALTH ALERT
+    <div class="update">
+
+        LAST SYNCHRONIZATION
+
+        <strong id="lastUpdated">
+            --:--:--
+        </strong>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =================================================
+     HEALTH GRID
+================================================= -->
+
+<section class="grid">
+
+
+<!-- HEART RATE -->
+
+<article class="card">
+
+    <div class="card-top">
+
+        <div class="icon">
+            ♡
+        </div>
+
+        <span class="label">
+            LIVE
+        </span>
+
+    </div>
+
+
+    <span class="card-name">
+        HEART RATE
+    </span>
+
+
+    <div class="value">
+
+        <strong id="heartRate">
+            72
+        </strong>
+
+        <span>
+            BPM
+        </span>
+
+    </div>
+
+
+    <div class="wave">
+
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+
+    </div>
+
+
+    <small>
+        Resting range: 60–100 BPM
+    </small>
+
+</article>
+
+
+
+<!-- OXYGEN -->
+
+<article class="card">
+
+    <div class="card-top">
+
+        <div class="icon">
+            O₂
+        </div>
+
+        <span class="label">
+            OXYGEN
+        </span>
+
+    </div>
+
+
+    <span class="card-name">
+        OXYGEN SATURATION
+    </span>
+
+
+    <div class="oxygen-wrap">
+
+        <div class="oxygen-ring">
+
+            <div class="oxygen-inner">
+
+                <strong id="oxygen">
+                    98
                 </strong>
 
-                <p id="alertMessage">
-                    Monitoring astronaut health.
-                </p>
+                <span>%</span>
 
             </div>
 
-            <div class="alert-line"></div>
+        </div>
 
-        </section>
+    </div>
 
 
+    <small>
+        Safe zone: 95–100%
+    </small>
 
-        <!-- =====================================
-             TELEMETRY TITLE
-        ====================================== -->
+</article>
 
-        <section class="telemetry-header">
 
-            <div>
 
-                <span class="mini-label">
-                    LIVE BIOMETRIC TELEMETRY
-                </span>
+<!-- TEMPERATURE -->
 
-                <h2>
-                    Crew Health Readings
-                </h2>
+<article class="card">
 
-            </div>
+    <div class="card-top">
 
+        <div class="icon">
+            ◇
+        </div>
 
-            <div class="last-update">
+        <span class="label">
+            TEMP
+        </span>
 
-                <span>
-                    LAST SYNCHRONIZATION
-                </span>
+    </div>
 
-                <strong id="lastUpdated">
-                    --:--:--
-                </strong>
 
-            </div>
+    <span class="card-name">
+        BODY TEMPERATURE
+    </span>
 
-        </section>
 
+    <div class="value">
 
+        <strong id="temperature">
+            36.7
+        </strong>
 
-        <!-- =====================================
-             HEALTH CARDS
-        ====================================== -->
+        <span>
+            °C
+        </span>
 
-        <section class="health-grid">
+    </div>
 
 
-            <!-- HEART RATE -->
+    <div class="bar">
 
-            <article class="health-card">
+        <div
+            id="temperatureProgress"
+            class="bar-fill"
+        ></div>
 
-                <div class="card-header">
+    </div>
 
-                    <div class="card-icon heart">
-                        ♡
-                    </div>
 
-                    <span class="live-label">
-                        LIVE
-                    </span>
+    <div class="bar-labels">
 
-                </div>
+        <span>LOW</span>
 
-                <span class="card-title">
-                    HEART RATE
-                </span>
+        <span>NORMAL</span>
 
-                <div class="value-row">
+        <span>HIGH</span>
 
-                    <strong id="heartRate">
-                        72
-                    </strong>
+    </div>
 
-                    <span>
-                        BPM
-                    </span>
 
-                </div>
+    <small>
+        Comfort range: 36.1–37.2°C
+    </small>
 
-                <div class="wave">
+</article>
 
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
 
-                </div>
 
-                <p>
-                    Resting range: 60–100 BPM
-                </p>
+<!-- SLEEP -->
 
-            </article>
+<article class="card">
 
+    <div class="card-top">
 
+        <div class="icon">
+            ◐
+        </div>
 
-            <!-- OXYGEN -->
+        <span class="label">
+            REST
+        </span>
 
-            <article class="health-card oxygen-card">
+    </div>
 
-                <div class="card-header">
 
-                    <div class="card-icon">
-                        O₂
-                    </div>
+    <span class="card-name">
+        SLEEP DURATION
+    </span>
 
-                    <span class="live-label">
-                        OXYGEN
-                    </span>
 
-                </div>
+    <div class="value">
 
-                <span class="card-title">
-                    OXYGEN SATURATION
-                </span>
+        <strong id="sleep">
+            7.4
+        </strong>
 
+        <span>
+            HRS
+        </span>
 
-                <div class="oxygen-area">
+    </div>
 
-                    <div class="oxygen-ring">
 
-                        <div class="oxygen-center">
+    <div class="bars">
 
-                            <strong id="oxygen">
-                                98
-                            </strong>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
 
-                            <span>%</span>
+    </div>
 
-                        </div>
 
-                    </div>
+    <small>
+        Recommended: 7–9 hours
+    </small>
 
-                </div>
+</article>
 
-                <p>
-                    Safe zone: 95–100%
-                </p>
 
-            </article>
 
+<!-- EXERCISE -->
 
+<article class="card">
 
-            <!-- TEMPERATURE -->
+    <div class="card-top">
 
-            <article class="health-card">
+        <div class="icon">
+            ↗
+        </div>
 
-                <div class="card-header">
+        <span class="label">
+            ACTIVITY
+        </span>
 
-                    <div class="card-icon">
-                        ◇
-                    </div>
+    </div>
 
-                    <span class="live-label">
-                        TEMP
-                    </span>
 
-                </div>
+    <span class="card-name">
+        EXERCISE TIME
+    </span>
 
-                <span class="card-title">
-                    BODY TEMPERATURE
-                </span>
 
-                <div class="value-row">
+    <div class="value">
 
-                    <strong id="temperature">
-                        36.7
-                    </strong>
+        <strong id="exercise">
+            54
+        </strong>
 
-                    <span>
-                        °C
-                    </span>
+        <span>
+            MIN
+        </span>
 
-                </div>
+    </div>
 
 
-                <div class="range-bar">
+    <div class="bars">
 
-                    <div
-                        id="temperatureProgress"
-                        class="range-fill"
-                    ></div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
 
-                </div>
+    </div>
 
-                <div class="range-labels">
-                    <span>LOW</span>
-                    <span>NORMAL</span>
-                    <span>HIGH</span>
-                </div>
 
-                <p>
-                    Comfort range: 36.1–37.2°C
-                </p>
+    <small>
+        Daily target: 30–90 minutes
+    </small>
 
-            </article>
+</article>
 
 
 
-            <!-- SLEEP -->
+<!-- MISSION STATUS -->
 
-            <article class="health-card">
+<article class="card">
 
-                <div class="card-header">
+    <div class="card-top">
 
-                    <div class="card-icon">
-                        ◐
-                    </div>
+        <div class="icon">
+            ✦
+        </div>
 
-                    <span class="live-label">
-                        REST
-                    </span>
+        <span class="label">
+            SYSTEM
+        </span>
 
-                </div>
+    </div>
 
-                <span class="card-title">
-                    SLEEP DURATION
-                </span>
 
-                <div class="value-row">
+    <span class="card-name">
+        MISSION STATUS
+    </span>
 
-                    <strong id="sleep">
-                        7.4
-                    </strong>
 
-                    <span>
-                        HRS
-                    </span>
+    <div class="active">
+        ACTIVE
+    </div>
 
-                </div>
 
-                <div class="sleep-visual">
+    <div class="system">
 
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+        <div>
+            <span></span>
+            TELEMETRY LINK
+        </div>
 
-                </div>
+        <div>
+            <span></span>
+            LIFE SUPPORT
+        </div>
 
-                <p>
-                    Recommended: 7–9 hours
-                </p>
+        <div>
+            <span></span>
+            MEDICAL BAY
+        </div>
 
-            </article>
+    </div>
 
 
+    <small>
+        All monitoring systems operational.
+    </small>
 
-            <!-- EXERCISE -->
+</article>
 
-            <article class="health-card">
 
-                <div class="card-header">
+</section>
 
-                    <div class="card-icon">
-                        ↗
-                    </div>
 
-                    <span class="live-label">
-                        ACTIVITY
-                    </span>
 
-                </div>
+<!-- =================================================
+     TELEMETRY LINK
+================================================= -->
 
-                <span class="card-title">
-                    EXERCISE TIME
-                </span>
+<section class="connection">
 
-                <div class="value-row">
 
-                    <strong id="exercise">
-                        54
-                    </strong>
+    <div class="connection-icon">
+        ◈
+    </div>
 
-                    <span>
-                        MIN
-                    </span>
 
-                </div>
+    <div class="connection-text">
 
-                <div class="activity-bars">
+        <strong>
+            DEEP SPACE TELEMETRY LINK
+        </strong>
 
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+        <p>
+            Receiving simulated biometric data
+            from spacecraft medical module.
+        </p>
 
-                </div>
+    </div>
 
-                <p>
-                    Daily target: 30–90 minutes
-                </p>
 
-            </article>
+    <div class="connection-status">
 
+        ● DATA STREAM ACTIVE
 
+    </div>
 
-            <!-- MISSION -->
 
-            <article class="health-card mission-card">
+</section>
 
-                <div class="card-header">
 
-                    <div class="card-icon">
-                        ✦
-                    </div>
 
-                    <span class="live-label">
-                        SYSTEM
-                    </span>
+<footer>
 
-                </div>
+    <span>
+        ORBITAL HEALTH SYSTEM
+    </span>
 
-                <span class="card-title">
-                    MISSION STATUS
-                </span>
+    <span>
+        MISSION 42
+    </span>
 
-                <div class="mission-active">
-                    ACTIVE
-                </div>
+    <span>
+        SIMULATED DATA • EDUCATIONAL PROTOTYPE
+    </span>
 
-                <div class="system-info">
+</footer>
 
-                    <div>
-                        <span></span>
-                        TELEMETRY LINK
-                    </div>
 
-                    <div>
-                        <span></span>
-                        LIFE SUPPORT
-                    </div>
+</main>
 
-                    <div>
-                        <span></span>
-                        MEDICAL BAY
-                    </div>
 
-                </div>
 
-                <p>
-                    All monitoring systems operational.
-                </p>
+<script>
 
-            </article>
+/* =====================================================
+   HEALTH DATA
+===================================================== */
 
-        </section>
+let health={
 
+    heartRate:72,
 
+    oxygen:98,
 
-        <!-- =====================================
-             TELEMETRY CONNECTION
-        ====================================== -->
+    temperature:36.7,
 
-        <section class="connection-panel">
+    sleep:7.4,
 
-            <div class="connection-icon">
-                ◈
-            </div>
+    exercise:54
 
-            <div class="connection-text">
+};
 
-                <strong>
-                    DEEP SPACE TELEMETRY LINK
-                </strong>
 
-                <p>
-                    Receiving simulated biometric data
-                    from spacecraft medical module.
-                </p>
+/* =====================================================
+   MISSION TIME
+===================================================== */
 
-            </div>
+let missionSeconds=
+    42*24*60*60;
 
 
-            <div class="connection-status">
+/* =====================================================
+   RANDOM NUMBER
+===================================================== */
 
-                <span></span>
+function randomBetween(min,max,decimals=0){
 
-                DATA STREAM ACTIVE
+    const value=
+        Math.random()*(max-min)+min;
 
-            </div>
+    return Number(
+        value.toFixed(decimals)
+    );
 
-        </section>
+}
 
 
+/* =====================================================
+   UPDATE HEALTH
+===================================================== */
 
-        <!-- =====================================
-             FOOTER
-        ====================================== -->
+function updateHealth(){
 
-        <footer>
+    health.heartRate=
+        randomBetween(60,105);
 
-            <div>
-                ORBITAL HEALTH SYSTEM
-            </div>
+    health.oxygen=
+        randomBetween(86,100);
 
-            <div>
-                MISSION 42
-            </div>
+    health.temperature=
+        randomBetween(36,38,1);
 
-            <div>
-                SIMULATED DATA • EDUCATIONAL PROTOTYPE
-            </div>
+    health.sleep=
+        randomBetween(5.5,9,1);
 
-        </footer>
+    health.exercise=
+        randomBetween(20,90);
 
-    </main>
 
+    document.getElementById(
+        "heartRate"
+    ).textContent=
+        health.heartRate;
 
-    <script src="script.js"></script>
+
+    document.getElementById(
+        "oxygen"
+    ).textContent=
+        health.oxygen;
+
+
+    document.getElementById(
+        "temperature"
+    ).textContent=
+        health.temperature;
+
+
+    document.getElementById(
+        "sleep"
+    ).textContent=
+        health.sleep;
+
+
+    document.getElementById(
+        "exercise"
+    ).textContent=
+        health.exercise;
+
+
+    /* TEMPERATURE */
+
+    let tempWidth=
+        ((health.temperature-35)/4)*100;
+
+
+    tempWidth=
+        Math.max(
+            5,
+            Math.min(100,tempWidth)
+        );
+
+
+    document.getElementById(
+        "temperatureProgress"
+    ).style.width=
+        tempWidth+"%";
+
+
+    /* OXYGEN */
+
+    const ring=
+        document.querySelector(
+            ".oxygen-ring"
+        );
+
+
+    ring.style.background=
+        `conic-gradient(
+            #75d7ff ${health.oxygen}%,
+            rgba(255,255,255,.05) ${health.oxygen}%
+        )`;
+
+
+    checkStatus();
+
+    updateTime();
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function checkStatus(){
+
+    const status=
+        document.getElementById(
+            "overallStatus"
+        );
+
+
+    const alert=
+        document.getElementById(
+            "alertBox"
+        );
+
+
+    const title=
+        document.getElementById(
+            "alertTitle"
+        );
+
+
+    const message=
+        document.getElementById(
+            "alertMessage"
+        );
+
+
+    /* CRITICAL */
+
+    if(health.oxygen<90){
+
+        status.className=
+            "status critical";
+
+
+        status.innerHTML=
+            "<span></span>CRITICAL";
+
+
+        alert.classList.remove(
+            "hidden"
+        );
+
+
+        title.textContent=
+            "CRITICAL OXYGEN ALERT";
+
+
+        message.textContent=
+            `Oxygen saturation has dropped to ${health.oxygen}%. Immediate medical attention is required.`;
+
+        return;
+
+    }
+
+
+    /* WARNING */
+
+    if(
+
+        health.heartRate>100 ||
+
+        health.temperature>37.5 ||
+
+        health.sleep<6
+
+    ){
+
+        status.className=
+            "status warning";
+
+
+        status.innerHTML=
+            "<span></span>WARNING";
+
+
+        alert.classList.remove(
+            "hidden"
+        );
+
+
+        title.textContent=
+            "HEALTH WARNING";
+
+
+        if(health.heartRate>100){
+
+            message.textContent=
+                `Heart rate is elevated at ${health.heartRate} BPM.`;
+
+        }
+
+        else if(health.temperature>37.5){
+
+            message.textContent=
+                `Body temperature is elevated at ${health.temperature}°C.`;
+
+        }
+
+        else{
+
+            message.textContent=
+                `Sleep duration is below the recommended level at ${health.sleep} hours.`;
+
+        }
+
+        return;
+
+    }
+
+
+    /* NORMAL */
+
+    status.className=
+        "status normal";
+
+
+    status.innerHTML=
+        "<span></span>NORMAL";
+
+
+    alert.classList.add(
+        "hidden"
+    );
+
+}
+
+
+/* =====================================================
+   MISSION CLOCK
+===================================================== */
+
+function updateMissionClock(){
+
+    missionSeconds++;
+
+
+    const days=
+        Math.floor(
+            missionSeconds/
+            86400
+        );
+
+
+    const remaining=
+        missionSeconds%86400;
+
+
+    const hours=
+        Math.floor(
+            remaining/3600
+        );
+
+
+    const minutes=
+        Math.floor(
+            (remaining%3600)/60
+        );
+
+
+    const seconds=
+        remaining%60;
+
+
+    document.getElementById(
+        "missionDay"
+    ).textContent=
+        `DAY ${days}`;
+
+
+    document.getElementById(
+        "missionTime"
+    ).textContent=
+
+        `${String(hours).padStart(2,"0")}:`+
+
+        `${String(minutes).padStart(2,"0")}:`+
+
+        `${String(seconds).padStart(2,"0")}`;
+
+}
+
+
+/* =====================================================
+   LAST UPDATE
+===================================================== */
+
+function updateLastUpdated(){
+
+    document.getElementById(
+        "lastUpdated"
+    ).textContent=
+
+        new Date().toLocaleTimeString(
+            [],
+            {
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit"
+            }
+        );
+
+}
+
+
+/* =====================================================
+   COMBINED UPDATE
+===================================================== */
+
+function updateTime(){
+
+    updateLastUpdated();
+
+}
+
+
+/* =====================================================
+   INITIAL
+===================================================== */
+
+updateHealth();
+
+updateMissionClock();
+
+
+/* =====================================================
+   AUTOMATIC UPDATES
+===================================================== */
+
+setInterval(
+    updateHealth,
+    5000
+);
+
+
+setInterval(
+    updateMissionClock,
+    1000
+);
+
+</script>
 
 </body>
 
